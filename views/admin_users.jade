@@ -1,0 +1,45 @@
+doctype html
+html
+    body
+        
+        h1 #{title}
+        form.login(method="post")
+            p
+              label(for="login") Email:
+              input(type="text",name="login",id="login",value="name@example.com")
+
+            p
+              label(for="password") Password:
+              input#password(type="password", name="password",value="4815162342")
+            
+            p.login-submit
+              button.login-button(type="submit") Login
+        
+        div(ng-app="", ng-controller="personController")          
+            p bonjour {{person.firstName}} {{person.firstName}}
+            p hello {{user.FirstName}} {{user.LastName}}
+            
+            script.
+                function personController($scope) {
+                    $scope.person = {
+                        firstName: "#{login}",
+                        lastName: "Doe",
+                        fullName: function() {
+                            var x;
+                            x = $scope.person;
+                            return x.firstName + " " + x.lastName;
+                        }
+                    };
+                    $scope.user={
+                        FirstName:"#{Myus.FirstName}",
+                        LastName:"#{Myus.LastName}"
+                    };    
+                }
+        
+        h1 #{login}/#{pwd}
+        
+        
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    
+

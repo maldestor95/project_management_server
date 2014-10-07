@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1.
+        Administration des utilisateurs
+    ul
+        each user, i in userlist
+            li
+                a(href="mailto:#{user.Name}")= user.FirstName
