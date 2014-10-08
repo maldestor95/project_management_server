@@ -11,9 +11,10 @@ var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 mongoose.connect('localhost:27017/risquesdbb');
+var RisqueSchema= require('./model/risque');
 
 //definition des schémas utilisés dans Mongoose
-var Schema = mongoose.Schema;  
+/*var Schema = mongoose.Schema;  
 
 var Risque = new Schema({  
     description:{ type: String, required: true },
@@ -28,7 +29,7 @@ var Risque = new Schema({
     Status_open: { type: Boolean, default: true },
     preventive_action: { type: String },
     Leader:{ type: String }
-});
+});*/
 
 //Routes 
 var routes = require('./routes/index');
@@ -92,7 +93,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-var env = require('node-env-file');
+/*var env = require('node-env-file');
 env('process.env');
 
 app.get('/', function(req, res) {
@@ -100,6 +101,6 @@ app.get('/', function(req, res) {
 });
 
 
-console.log(process.env.foo);
+console.log(process.env.foo);*/
 
 module.exports = app;

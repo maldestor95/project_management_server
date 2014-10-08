@@ -2,6 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
+var Risque = require('../model/risque');
 
 router.use(function(req,res,next){
 	console.log(req.method,req.url);
@@ -15,9 +16,19 @@ router.get('/', function(req, res) {
 router.route('/risk')
   .get(function(req,res,next){
   	res.send('lecture du risque depuis la bdd');
+    var risque= new Risque();
   })
   .post(function(req,res,next){
-    res.send('création du risque dans la bdd');
+    var risque= new Risque();
+    risque.description=req.body.description; 
+    console.log(risque.description)   ;
+    risque.save(function(err) {
+      if (err)
+        res.send(err);
+
+      res.json({ message: 'risque created!' });
+    });
+    //res.send('création du risque dans la bdd' + risque.description);
   })
   
 
