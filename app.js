@@ -1,6 +1,6 @@
 //Express Application made to target Risk Management tools
 
-var express = require('express');
+var express = require('express') ;
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');/*http request logger middleware for node.js*/
@@ -10,11 +10,30 @@ var bodyParser = require('body-parser');
 
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/nodetest1');
+mongoose.connect('localhost:27017/risquesdbb');
+
+//definition des schémas utilisés dans Mongoose
+var Schema = mongoose.Schema;  
+
+var Risque = new Schema({  
+    description:{ type: String, required: true },
+    type:{ type: String, required: true },
+    risk_opp : { type: String, required: true },
+    date_created: { type: Date, default: Date.now },
+    origine:{ type: String, required: true },
+    gravity: { type: Number, default: 1 },
+    probability:{ type: Number, default: 1 },
+    impact:{ type: String, required: true },
+    impact_desc: { type: String },
+    Status_open: { type: Boolean, default: true },
+    preventive_action: { type: String },
+    Leader:{ type: String }
+});
 
 //Routes 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var risk_route= require('./routes/risks');
 
 var app = express();
 
@@ -32,13 +51,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('C:/DATA/GIT/project_management/client'));
 
 // Make our db accessible to our router
-app.use(function(req,res,next){
+/*app.use(function(req,res,next){
     req.db = db;
     next();
-});
+});*/
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/risks', risk_route);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

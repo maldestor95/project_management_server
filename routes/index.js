@@ -11,6 +11,13 @@ router.get('/', function(req, res) {
 router.get('/helloworld',function(req,res){
 	res.render('helloworld',{title:'Hello, World!'})
 });
+/*Get Hello World page. */
+router.get('/someUrl',function(req,res){
+    res.send(req.param('impact_desc'));
+    //res.json({ user: 'tobi' })
+    /*res.render('helloworld',{title:'Hello, World!'})*/
+});
+
 
 /* GET Userlist page. */
 router.get('/userlist', function(req, res) {
