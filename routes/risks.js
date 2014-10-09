@@ -15,8 +15,12 @@ router.get('/', function(req, res) {
 });
 router.route('/risk')
   .get(function(req,res,next){
-  	res.send('lecture du risque depuis la bdd');
-    var risque= new Risque();
+  	Risque.find(function(err, risque) {
+      if (err)
+        res.send(err);
+
+      res.json(risque);
+    });
   })
   .post(function(req,res,next){
     var risque= new Risque();
@@ -30,24 +34,49 @@ router.route('/risk')
     });
     //res.send('création du risque dans la bdd' + risque.description);
   })
-  
 
-router.get('/list', function(req, res) {
-  res.send('Liste des risques contenus dans la bdd');
-});
+router.route('/risk/:risk_id')
 
- router.route('/admin_users')
-  .get(function(req,res,next){
-    var us={FirstName:"oo",LastName:"aa"};
-  	res.render('./admin_users', { Myus:us,title: 'admin_users',login:'john' });
+  // get the risqye with that id (accessed at GET http://localhost:3000/risks/risk/:risque_id)
+  .get(function(req, res) {
+    Risque.findById(req.params.risk_id, function(err, risque) {
+      if (err)
+        res.send(err);
+      res.json(risque);
+    });
   })
-  .post(function(req,res,next){
-  	//res.send('ll post');
-    //verify that the login/pwd does not exist in the database
-    
-    //if not; send an error message
-  	console.log(req.body.login);
-    var us={FirstName:"toto",LastName:"tata"};
-  	res.render('./admin_users', { Myus:us,title: 'admin_users post received',login: req.body.login,pwd:req.body.password });
+  // update the risque with this id (accessed at PUT http://localhost:3000/risks/risk/:risque_id)
+  .put(function(req, res) {
+
+    // use our risque model to find the risque we want
+    Risque.findById(req.params.risk_id, function(err, risque) {
+
+      if (err)
+        res.send(err);
+      else {
+        risque.description = req.body.description;  // update the risque info
+        //res.json({'param':req.body.description});
+        // save the risque
+        risque.save(function(err) {
+          if (err)
+            res.send(err);
+
+          res.json({ message: 'risque updated!' });
+        });
+      };
+    });
   })
+  // delete the risque with this id (accessed at DELETE http://localhost:3000/risks/risk/:risk_id)
+  .delete(function(req, res) {
+    Risque.remove({
+      _id: req.params.risk_id
+    }, function(err, risque) {
+      if (err)
+        res.send(err);
+
+      res.json({ message: 'Successfully deleted' });
+    });
+  });
+
+
 module.exports = router;
