@@ -1,8 +1,17 @@
 //route de gestion des risques
+// doit répondre aux  contraintes REST d'interfaçage:
+// POST: création 
+// PUT: mise à jour 
+// GET: obtenir 1 ou plusieurs risques
+// DELETE: effacer 1 risque
 
+
+//Includes
 var express = require('express');
 var router = express.Router();
-var Risque = require('../model/risque');
+var Risque = require('../model/risque'); //schema Mongoose qui référence la base de risques
+
+
 
 router.use(function(req,res,next){
 	//console.log(req.method,req.url);
@@ -10,11 +19,14 @@ router.use(function(req,res,next){
 })
 
 /* GET users listing. */
-router.get('/', function(req, res) {
-  res.send('Risks management');
-});
+router.route('/')
+  .get(function(req, res) {
+    res.send('Risks management');
+  });
 
+/*Gestion des risques*/
 router.route('/risk')
+  /*GET all risques*/
   .get(function(req,res,next){
   	Risque.find(function(err, risque) {
       if (err)
@@ -23,8 +35,11 @@ router.route('/risk')
       res.json(risque);
     });
   })
+  /*POST création d'un risque*/
   .post(function(req,res,next){
+
     var risque= new Risque();
+    /*initialisation*/
     risque.description=req.body.description;   
     risque.type=req.body.type;
     risque.risk_opp =req.body.risk_opp;
@@ -44,19 +59,20 @@ router.route('/risk')
       if (err)
         res.send(err);
       else
-        //on cherche le risque dans la bdd pour retourner son entrée au client
+        /*on cherche le risque dans la bdd pour retourner son entrée au client confirmant ainsi sa création*/
         Risque.findById(risk_just_saved, function(err, risque) {
           if (err)
             res.send(err);
           res.json(risque);
         });
-        //res.json({ message: 'risque created!' });
+
     });
     //res.send('création du risque dans la bdd' + risque.description);
   })
 
+/*Opération spécifique sur 1 risque*/
 router.route('/risk/:risk_id')
-  // get the risque with that id (accessed at GET http://localhost:3000/risks/risk/:risque_id)
+  // GET the risque with that id (accessed at GET http://localhost:3000/risks/risk/:risque_id)
   .get(function(req, res) {
     Risque.findById(req.params.risk_id, function(err, risque) {
       if (err)
@@ -65,7 +81,7 @@ router.route('/risk/:risk_id')
     });
   })
 
-  // update the risque with this id (accessed at PUT http://localhost:3000/risks/risk/:risque_id)
+  // PUT the risque with this id (accessed at PUT http://localhost:3000/risks/risk/:risque_id)
   .put(function(req, res) {
     // use our risque model to find the risque we want
     Risque.findById(req.params.risk_id, function(err, risque) {
@@ -86,7 +102,7 @@ router.route('/risk/:risk_id')
     });
   })
 
-  // delete the risque with this id (accessed at DELETE http://localhost:3000/risks/risk/:risk_id)
+  // DELETE the risque with this id (accessed at DELETE http://localhost:3000/risks/risk/:risk_id)
   .delete(function(req, res) {
     Risque.remove({
       _id: req.params.risk_id
@@ -97,6 +113,8 @@ router.route('/risk/:risk_id')
       res.json({ message: 'Successfully deleted' });
     });
   });
+
+
 
 
 module.exports = router;
