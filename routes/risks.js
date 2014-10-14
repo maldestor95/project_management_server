@@ -84,19 +84,52 @@ router.route('/risk/:risk_id')
   // PUT the risque with this id (accessed at PUT http://localhost:3000/risks/risk/:risque_id)
   .put(function(req, res) {
     // use our risque model to find the risque we want
+    console.log('DATA from client :'+JSON.stringify(req.body));
     Risque.findById(req.params.risk_id, function(err, risque) {
 
       if (err)
         res.send(err);
       else {
-        risque.description = req.body.description;  // update the risque info
+        console.log('risque  from BDD'+risque);
+        var risque_history={
+            description:risque.description, //description du risque ou de l'opportunité
+            type:risque.type,
+            risk_opp : risque.risk_opp,
+            date_modified:risque.date_modified ,
+            origine:risque.origine, // origine Interne ou Externe au projet
+            gravity: risque.gravity, //gravité 1=min; 3=max
+            probability:risque.probability, // probabilité: 1=peu probable; 3 fort probable
+            impact:risque.impact, //cout/délai/qualité
+            impact_desc: risque.impact_desc, //description de l'impact
+            Status_open: risque.Status_open, // ouvert ou fermé
+            preventive_action: risque.preventive_action, //
+            Leader:risque.Leader, // responsable du risque
+        };
+
+        risque.description=req.body.description; //description du risque ou de l'opportunité
+        risque.type=req.body.type;
+        risque.risk_opp = req.body.risk_opp;
+        risque.date_modified=Date.now() ;
+        risque.origine=req.body.origine; // origine Interne ou Externe au projet
+        risque.gravity= req.body.gravity; //gravité 1=min; 3=max
+        risque.probability=req.body.probability; // probabilité= 1=peu probable; 3 fort probable
+        risque.impact=req.body.impact; //cout/délai/qualité
+        risque.impact_desc= req.body.impact_desc; //description de l'impact
+        risque.Status_open= req.body.Status_open; // ouvert ou fermé
+        risque.preventive_action= req.body.preventive_action; //
+        risque.Leader=req.body.Leader; // responsable du risque
+
+        risque.history.push(risque_history);
+
+        
         //res.json({'param':req.body.description});
         // save the risque
         risque.save(function(err) {
           if (err)
             res.send(err);
-
-          res.json({ message: 'risque updated!' });
+          console.log('risque updated from BDD'+risque);
+          //Risque.findById(req.params.risk_id, function(err, risque_updated)
+          res.json(risque);
         });
       };
     });
