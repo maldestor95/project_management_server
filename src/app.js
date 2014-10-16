@@ -23,7 +23,7 @@ var risk_route= require('./routes/risks');
 
 //collect the environment variables
 var env = require('node-env-file');
-env('process.env');
+env('./src/process.env');
 
 var app = express();
 
