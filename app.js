@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('C:/DATA/GIT/project_management/client'));
+app.use(express.static('C:/DATA/GIT/project_management/client/src'));
 
 // Make our db accessible to our router
 /*app.use(function(req,res,next){
