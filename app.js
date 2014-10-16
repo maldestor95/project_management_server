@@ -10,31 +10,20 @@ var bodyParser = require('body-parser');
 
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/risquesdbb');
+
+mongoose.connect('localhost:27017/projet');
 var RisqueSchema= require('./model/risque');
-
-//definition des schémas utilisés dans Mongoose
-/*var Schema = mongoose.Schema;  
-
-var Risque = new Schema({  
-    description:{ type: String, required: true },
-    type:{ type: String, required: true },
-    risk_opp : { type: String, required: true },
-    date_created: { type: Date, default: Date.now },
-    origine:{ type: String, required: true },
-    gravity: { type: Number, default: 1 },
-    probability:{ type: Number, default: 1 },
-    impact:{ type: String, required: true },
-    impact_desc: { type: String },
-    Status_open: { type: Boolean, default: true },
-    preventive_action: { type: String },
-    Leader:{ type: String }
-});*/
+var ProjetSchema= require('./model/projet');
 
 //Routes 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var risk_route= require('./routes/risks');
+
+
+//collect the environment variables
+var env = require('node-env-file');
+env('process.env');
 
 var app = express();
 
@@ -63,7 +52,7 @@ app.use('/risks', risk_route);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    var err = new Error('Not Found lalal');
     err.status = 404;
     next(err);
 });
@@ -93,14 +82,12 @@ app.use(function(err, req, res, next) {
 });
 
 
-/*var env = require('node-env-file');
-env('process.env');
 
 app.get('/', function(req, res) {
   console.log("Cookies: ", req.cookies)
 });
 
 
-console.log(process.env.foo);*/
+/*console.log(process.env.foo);*/
 
 module.exports = app;
