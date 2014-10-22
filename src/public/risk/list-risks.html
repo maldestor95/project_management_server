@@ -1,0 +1,219 @@
+<html >            
+            
+    <table class="table  table-bordered" id="list_risk">
+        <tr class="title">
+            <td> 
+                Action
+            </td>
+            <td>Description
+                <input ng-model="search.description"></input>
+            </td>
+            <td ng-click="predicate='type';reverse=!reverse">type
+                <span ng-class="predicate=='type' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''">
+            </td>
+            <td ng-click="predicate='origine';reverse=!reverse">Origine
+                <span ng-class="predicate=='origine' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
+            </td>  
+            <td ng-click="predicate='risk_opp';reverse=!reverse" title="Risque ou opportunité?">
+                Risques ou Opportunité
+                <span ng-class="predicate=='risk_opp' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
+            </td>
+            <td ng-click="predicate='date_created';reverse=!reverse" title="Risque ou opportunité?">Date de création
+                <span ng-class="predicate=='date_created' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''">
+            </td>
+            <td ng-click="predicate='gravity';reverse=!reverse" title="gravity">
+                G <span ng-class="predicate=='gravity' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
+            </td>
+            <td ng-click="predicate='probability';reverse=!reverse" title="probability">
+                P <span ng-class="predicate=='probability' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
+                </td>
+            <td ng-click="predicate='criticity';reverse=!reverse" title="criticity">
+                C<span ng-class="predicate=='criticity' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
+                </td>
+            <td>Date de mise à jour</td>
+            <td ng-click="predicate='impact';reverse=!reverse" title="Impact">
+                Impact
+                <span ng-class="predicate=='impact' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
+            </td>
+            <td ng-click="predicate='impact_desc';reverse=!reverse" title="Impact">Description de l'impact
+
+                <span ng-class="predicate=='impact_desc' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
+                <input ng-model="search.impact_desc"></input>
+            </td>
+            <td ng-click="predicate='Status_open';reverse=!reverse">Status
+                <span ng-class="predicate=='Status_open' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
+            </td>
+            <td>Action Préventive
+                <input ng-model="search.preventive_action"></input>
+            </td>
+            <td ng-click="predicate='Leader';reverse=!reverse">Responsable
+                <span ng-class="predicate=='Leader' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
+            </td>
+        </tr>
+        <tbody ng-repeat="risk in riskCtrl.risks |orderBy:predicate:reverse |filter:search">
+            <tr class="risk_entry" ng-class="{grey:!risk.Status_open}"> <!-- data -->                   
+                <div  ng-init="editable=true">                    
+                    
+                    <td> <!-- Boutons Actions -->
+                        <a href="#" ng-show="editable" ng-click="editable=!editable" title="Edit" class="btn btn-xs btn-defaut">
+                                <span class="glyphicon glyphicon-pencil white"></span>  
+                        </a>
+                        <a href="#" ng-show="!editable" ng-click="riskCtrl.PUT(risk,riskCtrl.risks);editable=!editable" title="Update" class="btn btn-xs btn-defaut">
+                                <span class="glyphicon glyphicon-refresh white"></span>  
+                        </a>
+                    </td>
+
+                    <td> <!-- Description -->
+                        
+                        <input ng-disabled="editable" ng-show="!editable" type="textarea" name=""  ng-model="risk.description" value="{{risk.description}}" placeholder="" >
+                        <p ng-show="editable" class="wrap">
+                            {{risk.description}}
+                        </p>
+                    </td>
+
+                    <td> <!-- Type de Risque -->
+                        <select  ng-show="!editable" class="select"  
+                        ng-model="risk.type" 
+                        ng-init="risk.type" 
+                        ng-options="opt for opt in ['Management','Technique']">
+                        </select>
+                        <div ng-show="editable">
+                            {{risk.type}}
+                        </div>
+                    </td>
+
+                    <td> <!-- Origine du risque -->
+                        <select  ng-show="!editable" class="select"  
+                        ng-model="risk.origine" 
+                        ng-init="risk.origine" 
+                        ng-options="opt for opt in ['Interne','Externe']">
+                        </select>
+                        <div ng-show="editable">
+                            {{risk.origine}}
+                        </div> 
+                    </td>  
+
+                    <td> <!-- Risque ou opportunité -->
+                        <select  ng-show="!editable" class="select"  
+                        ng-model="risk.risk_opp" 
+                        ng-init="risk.risk_opp" 
+                        ng-options="opt for opt in ['Risque','Opportunité']">
+                        </select>
+                        <div ng-show="editable">
+                            {{risk.risk_opp}}
+                        </div>                            
+                    </td>
+
+                    <td>{{risk.date_created |date:'dd MMM yy'}}</td>
+
+                    <td><!--  Gravity -->
+                        <select  ng-show="!editable" class="select"  
+                        ng-model="risk.gravity" 
+                        ng-options="opt for opt in ['1','2','3']"
+                        title="1:Entraine des incidences mineures, légères, de peu d'importance, sans aucune incidence au niveau du client&#13;2 entraine des incidences graves, significatifs qui pourront avoir pour conséquences le non respect d'un aspect contractuel mineur&#13;3 entraine des dommages bloquants, catastrophiques, intolérables qui auront pour conséquence le non respect d'un aspect contractuel majeur">
+                        </select>
+                        <div ng-show="editable" ng-class="{red:risk.gravity>2}">
+                            {{risk.gravity}}
+                        </div>
+                    </td>
+
+                    <td>  <!-- Probability -->                    
+                        <select ng-show="!editable"class="select"
+                        ng-model="risk.probability" 
+                        ng-options="opt for opt in ['1','2','3']" 
+                        ng-init="risk.probability" 
+                        title="1:Peu probable&#13;2:Très probable&#13;3:Certain"> 
+                        </select>
+                        <div ng-show="editable" ng-class="{red:risk.probability>2}">
+                            {{risk.probability}}
+                        </div>
+                    </td>
+
+                    <td > <!-- Criticity -->
+                        <div ng-init="risk.criticity=risk.probability * risk.gravity" ng-class="{red:risk.criticity>5}">
+                            {{risk.criticity}}
+                        </div>
+                    </td>
+
+                    <td > <!-- Date de modification -->
+                        <p>{{risk.date_modified|date:'dd MMM yy'}}</p>
+                        <p id="center_plus_icon">
+                            <a ng-click="history_detail=!history_detail" ng-show="risk.history.length > 0">
+                                <span ng-class="!history_detail ? 'glyphicon glyphicon-plus white ':'glyphicon glyphicon-minus white '"></span>
+                            </a>
+                        </p>
+                    </td>
+
+                    <td>{{risk.impact}}</td>                       
+                    
+                    <td> <!-- Description de l'impact -->
+                    <input ng-disabled="editable" ng-show="!editable"type="text" name="" ng-model="risk.impact_desc" value="{{risk.impact_desc}}">
+                        <p ng-show="editable" class="wrap">
+                            {{risk.impact_desc}}
+                        </p>
+                    </td>
+                    
+                    <td>
+                        <select ng-show="!editable"class="select"
+                        ng-model="risk.Status_open" 
+                        ng-options="opt for opt in [true,false]" 
+                        ng-init="risk.Status_open"> 
+                        </select>
+                        <p ng-show="editable" ng-init="del_confirm=false">
+                            {{risk.Status_open?'Open':'Closed'}}
+                            <br>
+                            <a href="#" ng-show="editable&&!del_confirm"  data-toggle="modal" data-target="#ConfirmDelete" title="Delete" class="btn btn-xs btn-defaut" ng-click="del_confirm=true">
+                                <span class="glyphicon glyphicon-trash white"></span>  
+                            </a>
+                            <br>
+                            <a href="#" ng-show="editable&&del_confirm"  data-toggle="modal" data-target="#ConfirmDelete" title="Delete" class="btn btn-xs btn-primary" ng-click="riskCtrl.delete(risk._id)">
+                            Confirm</span>  
+                            </a>
+                            <br>
+                            <a href="#" ng-show="editable&&del_confirm"  data-toggle="modal" data-target="#ConfirmDelete" title="Delete" class="btn btn-xs btn-defaut" ng-click="del_confirm=false">
+                            Cancel</span>  
+                            </a>
+
+                        </p>
+                    </td>
+                    
+                    <td>
+                        <input ng-disabled="editable" ng-show="!editable" type="text" name="" ng-model="risk.preventive_action" value="{{risk.preventive_action}}">
+                        <p ng-show="editable" class="wrap">
+                            {{risk.preventive_action}}
+                        </p>
+                    </td>
+                    
+                    <td>
+                        <input ng-disabled="editable" type="text" name="" ng-model="risk.Leader" value="{{risk.Leader}}"/>
+                    </td>                    
+
+                </div>  
+
+            </tr>
+            
+            <tr ng-show="history_detail" ng-repeat="item in risk.history|orderBy:'-date_modified'" class="history" > <!-- history -->
+                <div ng-class-odd="'odd'" ng-class-even="'even'">
+                    
+                    <td ng-class-odd="'odd'" ng-class-even="'even'"></td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'" >{{item.description}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.type}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.origine}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.risk_opp}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'"></td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.gravity}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.probability}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.probability*item.gravity}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.date_modified|date:'dd MMM yy'}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.impact}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.impact_desc}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.Status_open}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.preventive_action}}</td>
+                    <td ng-class-odd="'odd'" ng-class-even="'even'">{{item.Leader}}</td>
+                </div>
+            </tr>
+        </tbody>
+    </table>
+
+
+</html>

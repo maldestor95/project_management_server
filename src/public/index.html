@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="MyApp" ng-init="menu='risques'">
+    <head>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"> 
+        <link rel="stylesheet" href="css/style.css"> 
+        <meta charset="UTF-8">  
+    </head>
+    <body ng-controller="riskController as riskCtrl">
+    
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Risques</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li ng-class="{active:menu=='home'}"><a href="#" ng-click="menu='home'">Home</a></li>
+            <li ng-class="{active:menu=='risques'}" class="dropdown">
+                <a href="#risques" class="dropdown-toggle" data-toggle="dropdown" ng-click="menu='risques'">Risques <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" ng-click="show_new_risk=true">Add Risk</a></li>
+                </ul>
+            </li>
+            <li ng-class="{active:menu=='settings'}" class="dropdown">
+                <a href="#settings" class="dropdown-toggle" data-toggle="dropdown" ng-click="menu='settings'">Setting <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" ng-click="show_new_risk=true">Add Project</a></li>
+                </ul>
+            </li>
+            <li ng-class="{active:menu=='about'}"><a href="#about" ng-click="menu='about'">About</a></li>
+            <li ng-class="{active:menu=='contact'}"><a href="#contact" ng-click="menu='contact'">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="starter-template" ng-show="menu=='home'">
+            <h1>Outil de gestion des risques</h1>
+            <p class="lead">
+            Ce site est en cours de développement dans le but de maitriser Angular.JS et de proposer un outil de gestion des risques.
+            </p>
+        </div>
+
+        <div ng-show="menu=='risques'" ><!-- /.container -->
+            <new-risk ></new-risk>
+            <list-risks></list-risks>
+            
+        </div>
+    </div>
+    
+    
+    <script TYPE="text/javascript" src="bower_components/angular/angular.min.js"></SCRIPT>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="risk/risk.js"></script>
+
+
+    </body>
+</html>

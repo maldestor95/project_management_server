@@ -1,0 +1,127 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.container {
+	padding:0px;
+}
+
+.select {
+	color: #2200FF;
+	border-radius: 5px;
+}
+.orange {
+	color: #FFCC00;
+}
+.blue {
+	color: #0066FF;
+}
+.white{
+	color: #FFFFFF;
+}
+
+.red {
+	color: #FFFFFF;
+	background-color: #FF0000	;
+	border:solid;
+	border-width: 2px;
+	border-radius: 7px;
+	width:15px;
+	border-color: #FF0000;
+	margin: auto;
+}
+.grey {
+	background-color: #444;
+}
+.textboxclass {
+width: 150px;
+}
+#new_risk {
+	border: solid;
+	border-width: 3px;
+	border-radius: 5px;
+	padding-top: 5px;
+	background-color: #BBBBFF;
+}
+#new_risk .description{
+	width: 100%;
+}
+#new_risk .form-group {
+	margin-bottom: 5px;/*color: #FF0000;*/
+}
+#new_risk select {
+	padding-top: 7px;
+}
+
+#Criticity {
+	padding-top: 5px;
+}
+#list_risk {
+	border-radius: 20px;
+}
+
+list-risks td{
+	font-size: 12px;
+}
+
+list-risks {
+	background-color: #8888FF;
+
+	padding-top: 0px;
+}
+
+list-risks input{
+	border-radius: 5px;
+	color : blue;
+}
+
+list-risks input:disabled, select:disabled{
+	background-color: #8888FF;
+	border:none;
+	color : white;
+}
+
+list-risks .title{
+	background-color: #000088;
+		background-color: #222;
+		color: #DDDDDD;
+}
+list-risks .risk_entry{
+	background-color: #8888FF;
+	color: #FFFFFF;
+}
+
+/*.table-striped>tr:nth-child(odd){
+   color:red;
+}*/
+.wrap {
+    width: 10em; 
+    word-wrap: break-word ;
+}
+
+.container {
+	width : auto;
+}
+
+.
+.history .odd{
+	background-color:#C0C8C8; 
+}
+.history .even{
+	background-color:#A0A8A8
+}
+
+body {
+	background-color: #B0A8B8;
+}
+#center_plus_icon {
+	padding-left: 20px;
+}
+
+input.ng-pristine.ng-invalid {
+    border-color: #FA787E;
+    border-width: 2px;
+  }
