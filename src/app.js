@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 //collect the environment variables
 var env = require('node-env-file');
 env('./src/process.env');
-console.log (MONGO_LAB_URI);
+console.log (process.env.MONGO_LAB_URI);
 console.log(process.env.MONGO_DBB);
 
 var mongo = require('mongodb');
