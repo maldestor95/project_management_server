@@ -7,11 +7,23 @@ var logger = require('morgan');/*http request logger middleware for node.js*/
 var cookieParser = require('cookie-parser');/*cookie parsing with signatures */ 
 var bodyParser = require('body-parser');
 
+//collect the environment variables
+var env = require('node-env-file');
+env('./src/process.env');
+console.log(process.env.MONGO_DBB)
 
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('localhost:27017/projet');
+if (process.env.NODE_ENV === 'development') {
+        mongoose.connect(process.env.MONGO_DBB_DEV);
+    }
+else{
+        mongoose.connect(process.env.MONGO_DBB_PROD);
+};
+
+//mongoose.connect('localhost:27017/projet');
+
 var RisqueSchema= require('./model/risque');
 var ProjetSchema= require('./model/projet');
 
@@ -21,9 +33,7 @@ var users = require('./routes/users');
 var risk_route= require('./routes/risks');
 
 
-//collect the environment variables
-var env = require('node-env-file');
-env('./src/process.env');
+
 
 var app = express();
 
@@ -77,7 +87,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: err
     });
 });
 
