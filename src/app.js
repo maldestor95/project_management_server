@@ -17,10 +17,10 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
 if (process.env.NODE_ENV === 'development') {
-        mongoose.connect(process.env.MONGO_LAB_URI);
+        mongoose.connect(process.env.MONGO_DBB);
     }
 else{
-        mongoose.connect(process.env.MONGO_LAB_URI);
+        mongoose.connect(process.env.MONGO_DBB);
 };
 
 //mongoose.connect('localhost:27017/projet');
