@@ -66,7 +66,7 @@ app.use('/risks', risk_route);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found lalal');
+    var err = new Error('Ressource not found');
     err.status = 404;
     next(err);
 });

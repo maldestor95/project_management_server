@@ -12,8 +12,9 @@ router.get('/helloworld',function(req,res){
 	res.render('helloworld',{title:'Hello, World!'})
 });
 /*Get Hello World page. */
-router.get('/test',function(req,res){
-    res.send(process.env.TIMES);
+router.get('/env',function(req,res){
+
+    res.render('env_variable',{NODE_ENV:process.env.NODE_ENV});
     //res.json({ user: 'tobi' })
     /*res.render('helloworld',{title:'Hello, World!'})*/
 });
