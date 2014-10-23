@@ -9,20 +9,20 @@ var bodyParser = require('body-parser');
 
 //collect the environment variables
 var env = require('node-env-file');
-env('./src/process.env');
-console.log ("MONGOLAB_URI "+JSON.stringify(process.env.MONGOLAB_URI));
-console.log("MONGO_DBB "+JSON.stringify(process.env.MONGO_DBB));
+try{
+    env('./src/process.env');
+}
+catch (e) {
+    //there is no ./src/process.env file accessible
+    //we need to check that the MONGOLAB_URI exist and we can connect to it.
+    console.log(e);
+    if (process.env.MONGOLAB_URI==undefined) {process.exit();}
+}
 
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-
-if (process.env.NODE_ENV === 'development') {
-        mongoose.connect(process.env.MONGO_DBB_DEV);
-    }
-else{
-        mongoose.connect(process.env.MONGOLAB_URI);
-};
+mongoose.connect(process.env.MONGOLAB_URI);
 
 //mongoose.connect('localhost:27017/projet');
 
