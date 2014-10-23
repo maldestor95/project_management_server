@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'development') {
         mongoose.connect(process.env.MONGO_DBB_DEV);
     }
 else{
-        mongoose.connect(process.env.MONGO_DBB_PROD);
+        mongoose.connect(process.env.MONGO_LAB_URI);
 };
 
 //mongoose.connect('localhost:27017/projet');
@@ -39,7 +39,7 @@ var risk_route= require('./routes/risks');
 
 var app = express();
 
-console.log ("MONGO_LAB_URI "+JSON.stringify(process.env.MONGO_LAB_URI));
+console.log ("MONGO_LAB_URI "+process.env.MONGO_LAB_URI);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
