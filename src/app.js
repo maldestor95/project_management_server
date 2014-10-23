@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 //collect the environment variables
 var env = require('node-env-file');
 env('./src/process.env');
-console.log ("MONGO_LAB_URI "+JSON.stringify(process.env.MONGO_LAB_URI));
+console.log ("MONGOLAB_URI "+JSON.stringify(process.env.MONGOLAB_URI));
 console.log("MONGO_DBB "+JSON.stringify(process.env.MONGO_DBB));
 
 var mongo = require('mongodb');
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'development') {
         mongoose.connect(process.env.MONGO_DBB_DEV);
     }
 else{
-        mongoose.connect(process.env.MONGO_LAB_URI);
+        mongoose.connect(process.env.MONGOLAB_URI);
 };
 
 //mongoose.connect('localhost:27017/projet');
