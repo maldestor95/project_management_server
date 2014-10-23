@@ -17,9 +17,26 @@ Editeur Sublime3 avec plugins:
 
 
 #Développement
-##Nécessite d'utiliser google chrome avec plugin Batarang
+##Pré-requis:
+* Nécessite d'utiliser google chrome avec plugin Batarang pour pouvoir débugger AngularJS
+* La distribution doit être lancée à partir d'un serveur local
+* fichier ./src/process.env doit contenir les variables d'environnements:
+	* `NODE_ENV=development`  ou autre valeur si le serveur express est dans un autre état
+	* `MONGLAB_URI=localhost:27017/projet`  chemin vers la base de donnée locale MONGODB.
 
-##La distribution doit être lancée à partir d'un serveur local
+
+
+#Mise en production sur HEROKU
+##vérifier les variables d'environnement:
+* lecture des variables `heroku config` 
+* configuration des variables `heroku config:set NODE_ENV=production`
+
+##Mise à jour du site:
+Cela se fait toujours à partir de la branche master.
+`git push heroku master`
+
+
+
 
 
 ##Outil de construction
