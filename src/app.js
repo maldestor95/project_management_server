@@ -38,8 +38,8 @@ var risk_route= require('./routes/risks');
 
 
 var app = express();
-var test=app.get("MONGO_LAB_URI");
-console.log ("MONGO_LAB_URI "+JSON.stringify(test));
+
+console.log ("MONGO_LAB_URI "+JSON.stringify(process.env.MONGO_LAB_URI));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

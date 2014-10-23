@@ -12,8 +12,8 @@ router.get('/helloworld',function(req,res){
 	res.render('helloworld',{title:'Hello, World!'})
 });
 /*Get Hello World page. */
-router.get('/someUrl',function(req,res){
-    res.send(req.param('impact_desc'));
+router.get('/test',function(req,res){
+    res.send(process.env.TIMES);
     //res.json({ user: 'tobi' })
     /*res.render('helloworld',{title:'Hello, World!'})*/
 });
