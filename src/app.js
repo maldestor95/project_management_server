@@ -16,6 +16,7 @@ console.log("MONGO_DBB "+JSON.stringify(process.env.MONGO_DBB));
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
+
 if (process.env.NODE_ENV === 'development') {
         mongoose.connect(process.env.MONGO_DBB_DEV);
     }
@@ -37,6 +38,8 @@ var risk_route= require('./routes/risks');
 
 
 var app = express();
+var test=app.get("MONGO_LAB_URI");
+console.log ("MONGO_LAB_URI "+JSON.stringify(test));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
